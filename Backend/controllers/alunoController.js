@@ -22,13 +22,13 @@ exports.getAlunos = (req, res) => {
 
 // POST - adicionar novo aluno
 exports.createAluno = (req, res) => {
-  const { nome, email, curso, notas } = req.body;
+  const { nome, email, curso } = req.body;
   const novoAluno = {
     id: Date.now(), // gera ID simples
     nome,
     email,
     curso,
-    notas
+    notas: [] // Sempre inicia vazio
   };
   alunos.push(novoAluno);
   res.status(201).json(novoAluno);
@@ -51,4 +51,15 @@ exports.deleteAluno = (req, res) => {
   const id = parseInt(req.params.id);
   alunos = alunos.filter((a) => a.id !== id);
   res.json({ message: 'Aluno removido' });
+};
+
+// GET - buscar aluno por ID
+exports.getAlunoById = (req, res) => {
+  const id = parseInt(req.params.id);
+  const aluno = alunos.find(a => a.id === id);
+  if (aluno) {
+    res.json(aluno);
+  } else {
+    res.status(404).json({ message: 'Aluno não encontrado' });
+  }
 };

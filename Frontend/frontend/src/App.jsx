@@ -6,6 +6,7 @@ import CadastroAluno from './pages/CadastroAluno';
 import ListaAlunos from './pages/ListaAlunos';
 import LancarNota from './pages/LancarNota';
 import BoletimAluno from './pages/BoletimAluno';
+import EditarAluno from './pages/EditarAluno';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/alunos" element={<ListaAlunos />} />
         <Route path="/lancar-nota" element={<LancarNota />} />
         <Route path="/boletim" element={<BoletimAluno />} />
+        <Route path="/editar/:id" element={<EditarAluno />} />
       </Routes>
     </>
   );
