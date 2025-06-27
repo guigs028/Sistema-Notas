@@ -24,7 +24,7 @@ export default function CadastroAluno() {
       });
 
       if (response.status === 409) {
-        setErro('Aluno já cadastrado com este e-mail!');
+        setErro('Aluno já cadastrado com este nome!');
         return;
       }
       if (!response.ok) {

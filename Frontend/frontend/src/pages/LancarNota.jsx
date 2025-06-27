@@ -31,7 +31,7 @@ export default function LancarNota() {
     await fetch(`http://localhost:5000/api/alunos/${aluno.id || aluno._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...aluno, notas: notas.map(Number) })
+      body: JSON.stringify({ ...aluno, notas: notas.map(n => parseFloat(n)) })
     });
     alert('Notas lançadas!');
     setAluno(null);
