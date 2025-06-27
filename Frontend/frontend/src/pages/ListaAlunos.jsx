@@ -15,6 +15,16 @@ export default function ListaAlunos() {
     navigate(`/editar/${aluno.id || aluno._id}`);
   };
 
+  const handleExcluir = async (alunoId) => {
+    if (window.confirm('Tem certeza que deseja excluir este aluno?')) {
+        await fetch(`http://localhost:5000/api/alunos/${alunoId}`, {
+            method: 'DELETE'
+        });
+        setAlunos(alunos.filter(a => a.id !== alunoId && a._id !== alunoId));
+        alert('Aluno excluído com sucesso!');
+        }
+    }
+
   return (
     <div>
       <h2>Lista de Alunos</h2>
@@ -37,6 +47,9 @@ export default function ListaAlunos() {
               <td>{(aluno.notas || []).join(', ')}</td>
               <td>
                 <button onClick={() => handleEditar(aluno)}>Editar</button>
+                <button onClick={() => handleExcluir(aluno.id || aluno._id)} style={{ marginLeft: 8, color: 'red' }}>
+                  Excluir
+                </button>
               </td>
             </tr>
           ))}
