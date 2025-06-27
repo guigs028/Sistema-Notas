@@ -23,12 +23,25 @@ exports.getAlunos = (req, res) => {
 // POST - adicionar novo aluno
 exports.createAluno = (req, res) => {
   const { nome, email, curso } = req.body;
+
+  // Validação de campos obrigatórios
+  if (!nome || !email || !curso) {
+    return res.status(400).json({ message: 'Preencha todos os campos!' });
+  }
+
+  // Normaliza o nome para comparação
+  const nomeNormalizado = nome.trim().toLowerCase().replace(/\s+/g, ' ');
+  const existe = alunos.some(a => a.nome.trim().toLowerCase().replace(/\s+/g, ' ') === nomeNormalizado);
+  if (existe) {
+    return res.status(409).json({ message: 'Aluno já cadastrado com este nome!' });
+  }
+
   const novoAluno = {
-    id: Date.now(), // gera ID simples
+    id: Date.now(),
     nome,
     email,
     curso,
-    notas: [] // Sempre inicia vazio
+    notas: []
   };
   alunos.push(novoAluno);
   res.status(201).json(novoAluno);
