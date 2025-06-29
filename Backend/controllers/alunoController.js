@@ -76,3 +76,19 @@ exports.getAlunoById = (req, res) => {
     res.status(404).json({ message: 'Aluno não encontrado' });
   }
 };
+
+// PUT - lançar notas
+exports.lancarNotas = (req, res) => {
+  const id = parseInt(req.params.id);
+  const aluno = alunos.find(a => a.id === id);
+  if (aluno) {
+    const { notas } = req.body;
+    if (!Array.isArray(notas) || notas.length !== 3 || !notas.every(n => typeof n === 'number')) {
+      return res.status(400).json({ message: 'Notas inválidas. Deve ser um array de 3 números.' });
+    }
+    aluno.notas = notas;
+    res.json(aluno);
+  } else {
+    res.status(404).json({ message: 'Aluno não encontrado' });
+  }
+}

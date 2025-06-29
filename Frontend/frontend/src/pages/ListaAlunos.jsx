@@ -25,6 +25,10 @@ export default function ListaAlunos() {
         }
     }
 
+    const handleLancarNotas = (aluno) => {
+      navigate(`/lancar-nota/${aluno.id || aluno._id}`);
+    };
+
   return (
     <div>
       <h2>Lista de Alunos</h2>
@@ -49,6 +53,9 @@ export default function ListaAlunos() {
                 <button onClick={() => handleEditar(aluno)}>Editar</button>
                 <button onClick={() => handleExcluir(aluno.id || aluno._id)} style={{ marginLeft: 8, color: 'red' }}>
                   Excluir
+                </button>
+                <button onClick={() => handleLancarNotas(aluno)} style={{ marginLeft: 8 }}>
+                  Lançar Notas
                 </button>
               </td>
             </tr>

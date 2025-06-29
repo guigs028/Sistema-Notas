@@ -1,10 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function LancarNota() {
+  const { id } = useParams();
   const [busca, setBusca] = useState('');
   const [aluno, setAluno] = useState(null);
   const [notas, setNotas] = useState(['', '', '']);
   const [erro, setErro] = useState('');
+
+  // Se veio por ID na URL, busca o aluno automaticamente
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:5000/api/alunos/${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Aluno não encontrado!');
+          return res.json();
+        })
+        .then(data => {
+          setAluno(data);
+          setNotas(data.notas && data.notas.length === 3 ? data.notas.map(String) : ['', '', '']);
+        })
+        .catch(() => setErro('Aluno não encontrado!'));
+    }
+  }, [id]);
 
   const handleBuscar = async () => {
     setErro('');
@@ -14,7 +32,7 @@ export default function LancarNota() {
     const encontrado = alunos.find(a => a.nome.toLowerCase() === busca.toLowerCase());
     if (encontrado) {
       setAluno(encontrado);
-      setNotas(['', '', '']);
+      setNotas(encontrado.notas && encontrado.notas.length === 3 ? encontrado.notas.map(String) : ['', '', '']);
     } else {
       setErro('Aluno não encontrado!');
     }
@@ -42,12 +60,16 @@ export default function LancarNota() {
   return (
     <div>
       <h2>Lançar Nota</h2>
-      <input
-        placeholder="Digite o nome do aluno"
-        value={busca}
-        onChange={e => setBusca(e.target.value)}
-      />
-      <button onClick={handleBuscar}>Buscar</button>
+      {!id && (
+        <>
+          <input
+            placeholder="Digite o nome do aluno"
+            value={busca}
+            onChange={e => setBusca(e.target.value)}
+          />
+          <button onClick={handleBuscar}>Buscar</button>
+        </>
+      )}
       {erro && <div style={{ color: 'red', marginTop: 10 }}>{erro}</div>}
 
       {aluno && (
