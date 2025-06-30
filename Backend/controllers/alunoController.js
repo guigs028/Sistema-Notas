@@ -1,27 +1,13 @@
-let alunos = [
-  {
-    id: 1,
-    nome: "João Silva",
-    email: "joao@email.com",
-    curso: "Engenharia de Software",
-    notas: [8.5, 7.0, 9.0]
-  },
-  {
-    id: 2,
-    nome: "Maria Oliveira",
-    email: "maria@email.com",
-    curso: "Ciência da Computação",
-    notas: [7.0, 6.5, 8.0]
-  }
-];
+const Aluno = require('../models/Aluno');
 
 // GET - listar alunos
-exports.getAlunos = (req, res) => {
+exports.getAlunos = async (req, res) => {
+  const alunos = await Aluno.find();
   res.json(alunos);
 };
 
 // POST - adicionar novo aluno
-exports.createAluno = (req, res) => {
+exports.createAluno = async (req, res) => {
   const { nome, email, curso } = req.body;
 
   // Validação de campos obrigatórios
@@ -29,21 +15,14 @@ exports.createAluno = (req, res) => {
     return res.status(400).json({ message: 'Preencha todos os campos!' });
   }
 
-  // Normaliza o nome para comparação
-  const nomeNormalizado = nome.trim().toLowerCase().replace(/\s+/g, ' ');
-  const existe = alunos.some(a => a.nome.trim().toLowerCase().replace(/\s+/g, ' ') === nomeNormalizado);
+  // Verifica nome duplicado
+  const existe = await Aluno.findOne({ nome: new RegExp(`^${nome}$`, 'i') });
   if (existe) {
     return res.status(409).json({ message: 'Aluno já cadastrado com este nome!' });
   }
 
-  const novoAluno = {
-    id: Date.now(),
-    nome,
-    email,
-    curso,
-    notas: []
-  };
-  alunos.push(novoAluno);
+  const novoAluno = new Aluno({ nome, email, curso });
+  await novoAluno.save();
   res.status(201).json(novoAluno);
 };
 
