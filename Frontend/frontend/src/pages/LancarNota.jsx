@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+// Componente para lançar notas de um aluno
 export default function LancarNota() {
-  const { id } = useParams();
-  const [busca, setBusca] = useState('');
-  const [aluno, setAluno] = useState(null);
-  const [notas, setNotas] = useState(['', '', '']);
-  const [erro, setErro] = useState('');
+  const { id } = useParams(); // Pega o ID do aluno da URL (se vier pela rota)
+  const [busca, setBusca] = useState(''); // Estado para o campo de busca por nome
+  const [aluno, setAluno] = useState(null); // Estado para armazenar o aluno encontrado
+  const [notas, setNotas] = useState(['', '', '']); // Estado para as 3 notas (como strings)
+  const [erro, setErro] = useState(''); // Estado para mensagem de erro
 
-  // Se veio por ID na URL, busca o aluno automaticamente
+  // Se veio um ID na URL, busca o aluno automaticamente ao carregar a página
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:5000/api/alunos/${id}`)
@@ -17,18 +18,21 @@ export default function LancarNota() {
           return res.json();
         })
         .then(data => {
-          setAluno(data);
+          setAluno(data); // Salva o aluno encontrado
+          // Se já tem 3 notas, exibe nos inputs, senão deixa vazio
           setNotas(data.notas && data.notas.length === 3 ? data.notas.map(String) : ['', '', '']);
         })
         .catch(() => setErro('Aluno não encontrado!'));
     }
   }, [id]);
 
+  // Função para buscar aluno pelo nome digitado
   const handleBuscar = async () => {
     setErro('');
     setAluno(null);
     const res = await fetch('http://localhost:5000/api/alunos');
     const alunos = await res.json();
+    // Busca aluno pelo nome (case insensitive)
     const encontrado = alunos.find(a => a.nome.toLowerCase() === busca.toLowerCase());
     if (encontrado) {
       setAluno(encontrado);
@@ -38,25 +42,29 @@ export default function LancarNota() {
     }
   };
 
+  // Atualiza o estado das notas quando algum input é alterado
   const handleNotaChange = (index, value) => {
     const novasNotas = [...notas];
     novasNotas[index] = value;
     setNotas(novasNotas);
   };
 
+  // Função para lançar (salvar) as notas do aluno
   const handleLancarNotas = async () => {
-    if (!aluno) return;
+    if (!aluno) return; // Não faz nada se não houver aluno selecionado
     await fetch(`http://localhost:5000/api/alunos/${aluno.id || aluno._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
+      // Atualiza as notas do aluno (converte para float)
       body: JSON.stringify({ ...aluno, notas: notas.map(n => parseFloat(n)) })
     });
     alert('Notas lançadas!');
-    setAluno(null);
-    setBusca('');
-    setNotas(['', '', '']);
+    setAluno(null); // Limpa o aluno selecionado
+    setBusca(''); // Limpa o campo de busca
+    setNotas(['', '', '']); // Limpa os campos de notas
   };
 
+  // Renderização do componente
   return (
     <div
       style={{
@@ -67,13 +75,15 @@ export default function LancarNota() {
         boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         padding: '2rem',
         minHeight: 300,
-        fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte alterada aqui
+        fontFamily: 'Segoe UI, Arial, sans-serif'
       }}
     >
+      {/* Título da página */}
       <h2 style={{ color: '#22223b', fontSize: '2rem', fontWeight: 'bold', marginBottom: 24, textAlign: 'center', fontFamily: 'Segoe UI, Arial, sans-serif' }}>
         Lançar Nota
       </h2>
       
+      {/* Formulário de busca por nome (só aparece se não veio ID na URL) */}
       {!id && (
         <form
           onSubmit={e => {
@@ -113,8 +123,10 @@ export default function LancarNota() {
           </button>
         </form>
       )}
+      {/* Exibe mensagem de erro, se houver */}
       {erro && <div style={{ color: 'red', marginTop: 10, textAlign: 'center' }}>{erro}</div>}
 
+      {/* Se encontrou o aluno, exibe inputs para lançar as notas */}
       {aluno && (
         <div
           style={{
@@ -126,7 +138,9 @@ export default function LancarNota() {
             boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
           }}
         >
+          {/* Nome do aluno */}
           <h3 style={{ color: '#222', fontSize: '1.3rem', marginBottom: 16, textAlign: 'center', fontFamily: 'Segoe UI, Arial, sans-serif' }}>{aluno.nome}</h3>
+          {/* Inputs para as três notas */}
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 18 }}>
             <input
               type="number"
@@ -171,10 +185,11 @@ export default function LancarNota() {
               }}
             />
           </div>
+          {/* Botão para lançar as notas */}
           <button
             onClick={handleLancarNotas}
             style={{
-              background: '#6366f1', // mesma cor do botão Buscar
+              background: '#6366f1',
               color: '#fff',
               border: 'none',
               borderRadius: 6,

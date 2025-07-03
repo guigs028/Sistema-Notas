@@ -1,53 +1,61 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Componente que exibe a lista de alunos cadastrados
 export default function ListaAlunos() {
-  const [alunos, setAlunos] = useState([]);
-  const navigate = useNavigate();
+  const [alunos, setAlunos] = useState([]); // Estado para armazenar a lista de alunos
+  const navigate = useNavigate(); // Hook para navegação programática
 
+  // Busca a lista de alunos no backend ao carregar a página
   useEffect(() => {
     fetch('http://localhost:5000/api/alunos')
       .then(res => res.json())
       .then(data => setAlunos(data));
   }, []);
 
+  // Função para navegar para a tela de edição do aluno selecionado
   const handleEditar = (aluno) => {
     navigate(`/editar/${aluno.id || aluno._id}`);
   };
 
+  // Função para excluir um aluno
   const handleExcluir = async (alunoId) => {
     if (window.confirm('Tem certeza que deseja excluir este aluno?')) {
       await fetch(`http://localhost:5000/api/alunos/${alunoId}`, {
         method: 'DELETE'
       });
+      // Remove o aluno da lista local após exclusão
       setAlunos(alunos.filter(a => a.id !== alunoId && a._id !== alunoId));
       alert('Aluno excluído com sucesso!');
     }
   };
 
+  // Função para navegar para a tela de lançamento de notas do aluno selecionado
   const handleLancarNotas = (aluno) => {
     navigate(`/lancar-nota/${aluno.id || aluno._id}`);
   };
 
-  // Ícone SVG de lixeira
+  // Ícone SVG de lixeira para o botão de exclusão
   const TrashIcon = (
     <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
       <path d="M7 8V14M10 8V14M13 8V14M5 6H15M8 6V5C8 4.44772 8.44772 4 9 4H11C11.5523 4 12 4.44772 12 5V6M4 6H16V16C16 16.5523 15.5523 17 15 17H5C4.44772 17 4 16.5523 4 16V6Z" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
 
+  // Renderização da tabela de alunos
   return (
     <div
       style={{
-        maxWidth: 900,
-        margin: '40px auto',
-        background: '#f9fafb',
-        borderRadius: 16,
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        maxWidth: 900, // Largura máxima do card
+        margin: '40px auto', // Centraliza na tela
+        background: '#f9fafb', // Cor de fundo suave
+        borderRadius: 16, // Bordas arredondadas
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)', // Sombra suave
         padding: '2rem',
-        fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte alterada aqui
+        fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte amigável
       }}
     >
+      {/* Título da página */}
       <h2
         style={{
           fontSize: '2rem',
@@ -55,11 +63,12 @@ export default function ListaAlunos() {
           color: '#1e293b',
           marginBottom: '1.5rem',
           textAlign: 'center',
-          fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte alterada aqui
+          fontFamily: 'Segoe UI, Arial, sans-serif'
         }}
       >
         Lista de Alunos
       </h2>
+      {/* Tabela responsiva */}
       <div style={{ overflowX: 'auto' }}>
         <table
           style={{
@@ -71,6 +80,7 @@ export default function ListaAlunos() {
         >
           <thead>
             <tr>
+              {/* Cabeçalhos das colunas */}
               <th style={{ background: '#e0e7ff', color: '#334155', fontWeight: 600, padding: '12px 16px', textAlign: 'left' }}>Nome</th>
               <th style={{ background: '#e0e7ff', color: '#334155', fontWeight: 600, padding: '12px 16px', textAlign: 'left' }}>Email</th>
               <th style={{ background: '#e0e7ff', color: '#334155', fontWeight: 600, padding: '12px 16px', textAlign: 'left' }}>Curso</th>
@@ -79,6 +89,7 @@ export default function ListaAlunos() {
             </tr>
           </thead>
           <tbody>
+            {/* Renderiza cada aluno como uma linha da tabela */}
             {alunos.map(aluno => (
               <tr
                 key={aluno.id || aluno._id}
@@ -89,12 +100,15 @@ export default function ListaAlunos() {
                 onMouseOver={e => (e.currentTarget.style.background = '#e0e7ff')}
                 onMouseOut={e => (e.currentTarget.style.background = '')}
               >
+                {/* Dados do aluno */}
                 <td style={{ padding: '10px 16px' }}>{aluno.nome}</td>
                 <td style={{ padding: '10px 16px' }}>{aluno.email}</td>
                 <td style={{ padding: '10px 16px' }}>{aluno.curso}</td>
                 <td style={{ padding: '10px 16px' }}>{(aluno.notas || []).join(', ')}</td>
                 <td style={{ padding: '10px 16px' }}>
+                  {/* Botões de ação */}
                   <div style={{ display: 'flex', gap: 8 }}>
+                    {/* Botão para lançar notas */}
                     <button
                       onClick={() => handleLancarNotas(aluno)}
                       style={{
@@ -112,6 +126,7 @@ export default function ListaAlunos() {
                     >
                       Lançar Notas
                     </button>
+                    {/* Botão para editar aluno */}
                     <button
                       onClick={() => handleEditar(aluno)}
                       style={{
@@ -129,6 +144,7 @@ export default function ListaAlunos() {
                     >
                       Editar
                     </button>
+                    {/* Botão para excluir aluno */}
                     <button
                       onClick={() => handleExcluir(aluno.id || aluno._id)}
                       style={{
@@ -152,6 +168,7 @@ export default function ListaAlunos() {
                 </td>
               </tr>
             ))}
+            {/* Caso não haja alunos cadastrados */}
             {alunos.length === 0 && (
               <tr>
                 <td colSpan={5} style={{ textAlign: 'center', padding: '24px', color: '#888' }}>

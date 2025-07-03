@@ -1,36 +1,43 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
+// Componente para editar os dados de um aluno já cadastrado
 export default function EditarAluno() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams(); // Pega o ID do aluno da URL
+  const navigate = useNavigate(); // Permite navegação programática
+  // Estado local para armazenar os dados do aluno
   const [aluno, setAluno] = useState({ nome: '', email: '', curso: '', notas: [] });
 
+  // Busca os dados do aluno ao carregar a página ou quando o ID mudar
   useEffect(() => {
     fetch(`http://localhost:5000/api/alunos/${id}`)
       .then(res => res.json())
       .then(data => setAluno(data));
   }, [id]);
 
+  // Atualiza o estado do aluno quando algum campo de texto é alterado
   const handleChange = (e) => {
     setAluno({ ...aluno, [e.target.name]: e.target.value });
   };
 
+  // Atualiza o estado das notas (converte string separada por vírgula em array de números)
   const handleNotasChange = (e) => {
     setAluno({ ...aluno, notas: e.target.value.split(',').map(Number) });
   };
 
+  // Função chamada ao enviar o formulário
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evita recarregar a página
     await fetch(`http://localhost:5000/api/alunos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(aluno)
     });
     alert('Aluno atualizado!');
-    navigate('/alunos');
+    navigate('/alunos'); // Redireciona para a lista de alunos
   };
 
+  // Renderização do formulário de edição
   return (
     <form
       onSubmit={handleSubmit}
@@ -47,9 +54,11 @@ export default function EditarAluno() {
         fontFamily: 'Arial, sans-serif'
       }}
     >
+      {/* Título da página */}
       <h2 style={{ color: '#22223b', fontSize: '2rem', fontWeight: 'bold', marginBottom: 24, textAlign: 'center' }}>
         Editar Aluno
       </h2>
+      {/* Campo de nome */}
       <input
         name="nome"
         placeholder="Nome"
@@ -63,6 +72,7 @@ export default function EditarAluno() {
           fontSize: 16
         }}
       />
+      {/* Campo de email */}
       <input
         name="email"
         placeholder="Email"
@@ -76,6 +86,7 @@ export default function EditarAluno() {
           fontSize: 16
         }}
       />
+      {/* Campo de curso */}
       <input
         name="curso"
         placeholder="Curso"
@@ -89,6 +100,7 @@ export default function EditarAluno() {
           fontSize: 16
         }}
       />
+      {/* Campo de notas (separadas por vírgula) */}
       <input
         name="notas"
         placeholder="Notas (separadas por vírgula)"
@@ -101,6 +113,7 @@ export default function EditarAluno() {
           fontSize: 16
         }}
       />
+      {/* Botão para salvar as alterações */}
       <button
         type="submit"
         style={{
@@ -114,7 +127,7 @@ export default function EditarAluno() {
           cursor: 'pointer',
           marginTop: 8,
           transition: 'background 0.2s',
-          width: '100%', // igual ao botão Voltar
+          width: '100%',
           fontFamily: 'Segoe UI, Arial, sans-serif'
         }}
         onMouseOver={e => (e.currentTarget.style.background = '#4f46e5')}
@@ -122,6 +135,7 @@ export default function EditarAluno() {
       >
         Salvar
       </button>
+      {/* Botão para voltar para a lista de alunos */}
       <button
         type="button"
         onClick={() => navigate('/alunos')}
