@@ -1,6 +1,6 @@
 # Sistema de Notas - React + Vite
 
-Sistema web completo para cadastro de alunos, lançamento de notas e geração de boletins, desenvolvido com **React**, **Vite**, **Node.js (Express)** e **MongoDB**.
+Sistema web completo para cadastro de alunos e lançamento de notas, desenvolvido com **React**, **Vite**, **Node.js (Express)** e **MongoDB**.
 
 ---
 
@@ -18,7 +18,7 @@ Sistema web completo para cadastro de alunos, lançamento de notas e geração d
 
 ## Sobre o Projeto
 
-O **Sistema de Notas** é uma aplicação web que permite o gerenciamento completo de alunos, incluindo cadastro, edição, exclusão, lançamento de notas e visualização de boletins. O objetivo é facilitar o controle acadêmico de forma simples, eficiente e intuitiva, tanto para instituições de ensino quanto para professores.
+O **Sistema de Notas** é uma aplicação web que permite o gerenciamento completo de alunos, incluindo cadastro, edição, exclusão e lançamento de notas (buscando o aluno ou editando através da lista de alunos). O objetivo é facilitar o controle acadêmico de forma simples, eficiente e intuitiva, tanto para instituições de ensino quanto para professores.
 
 ---
 
@@ -28,7 +28,6 @@ O **Sistema de Notas** é uma aplicação web que permite o gerenciamento comple
 - Listagem de todos os alunos cadastrados
 - Edição e exclusão de alunos
 - Lançamento e edição de notas individuais
-- Visualização de boletim detalhado do aluno
 - Busca de alunos por nome
 - Interface responsiva e amigável
 
@@ -149,4 +148,4 @@ Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
-Feito com ♥ por [Seu Nome](https://github.com/seu-usuario)
+Feito por [Guilherme Dentzien](https://github.com/guigs028)
