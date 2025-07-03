@@ -58,44 +58,138 @@ export default function LancarNota() {
   };
 
   return (
-    <div>
-      <h2>Lançar Nota</h2>
+    <div
+      style={{
+        maxWidth: 400,
+        margin: '40px auto',
+        background: '#fff',
+        borderRadius: 16,
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        padding: '2rem',
+        minHeight: 300,
+        fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte alterada aqui
+      }}
+    >
+      <h2 style={{ color: '#22223b', fontSize: '2rem', fontWeight: 'bold', marginBottom: 24, textAlign: 'center', fontFamily: 'Segoe UI, Arial, sans-serif' }}>
+        Lançar Nota
+      </h2>
+      
       {!id && (
-        <>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            handleBuscar();
+          }}
+          style={{ display: 'flex', gap: 8, marginBottom: 20 }}
+        >
           <input
             placeholder="Digite o nome do aluno"
             value={busca}
             onChange={e => setBusca(e.target.value)}
+            style={{
+              flex: 1,
+              padding: '10px',
+              borderRadius: 6,
+              border: '1px solid #bbb',
+              fontSize: 16
+            }}
           />
-          <button onClick={handleBuscar}>Buscar</button>
-        </>
+          <button
+            type="submit"
+            style={{
+              background: '#6366f1',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              padding: '10px 18px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              transition: 'background 0.2s'
+            }}
+            onMouseOver={e => (e.currentTarget.style.background = '#4f46e5')}
+            onMouseOut={e => (e.currentTarget.style.background = '#6366f1')}
+          >
+            Buscar
+          </button>
+        </form>
       )}
-      {erro && <div style={{ color: 'red', marginTop: 10 }}>{erro}</div>}
+      {erro && <div style={{ color: 'red', marginTop: 10, textAlign: 'center' }}>{erro}</div>}
 
       {aluno && (
-        <div style={{ border: '1px solid #ccc', marginTop: 20, padding: 20 }}>
-          <h3>{aluno.nome}</h3>
-          <div>
+        <div
+          style={{
+            border: '1px solid #ccc',
+            marginTop: 20,
+            padding: 20,
+            background: '#f9fafb',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+          }}
+        >
+          <h3 style={{ color: '#222', fontSize: '1.3rem', marginBottom: 16, textAlign: 'center', fontFamily: 'Segoe UI, Arial, sans-serif' }}>{aluno.nome}</h3>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 18 }}>
             <input
               type="number"
               placeholder="Nota 1"
               value={notas[0]}
               onChange={e => handleNotaChange(0, e.target.value)}
+              style={{
+                width: 70,
+                padding: '8px',
+                borderRadius: 6,
+                border: '1px solid #bbb',
+                fontSize: 16,
+                textAlign: 'center'
+              }}
             />
             <input
               type="number"
               placeholder="Nota 2"
               value={notas[1]}
               onChange={e => handleNotaChange(1, e.target.value)}
+              style={{
+                width: 70,
+                padding: '8px',
+                borderRadius: 6,
+                border: '1px solid #bbb',
+                fontSize: 16,
+                textAlign: 'center'
+              }}
             />
             <input
               type="number"
               placeholder="Nota 3"
               value={notas[2]}
               onChange={e => handleNotaChange(2, e.target.value)}
+              style={{
+                width: 70,
+                padding: '8px',
+                borderRadius: 6,
+                border: '1px solid #bbb',
+                fontSize: 16,
+                textAlign: 'center'
+              }}
             />
           </div>
-          <button onClick={handleLancarNotas}>Lançar Notas</button>
+          <button
+            onClick={handleLancarNotas}
+            style={{
+              background: '#6366f1', // mesma cor do botão Buscar
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              padding: '12px',
+              fontSize: 16,
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              width: '100%',
+              transition: 'background 0.2s'
+            }}
+            onMouseOver={e => (e.currentTarget.style.background = '#4f46e5')}
+            onMouseOut={e => (e.currentTarget.style.background = '#6366f1')}
+          >
+            Lançar Notas
+          </button>
         </div>
       )}
     </div>
