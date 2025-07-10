@@ -12,8 +12,8 @@ export default function Home() {
               height: auto !important;
               min-height: 100vh;
               border-radius: 0 !important;
-              padding: 2rem 4vw !important; /* padding lateral proporcional */
-              margin: 0 auto !important;
+              padding: 2rem 4vw !important;
+              margin: 0 auto !important; /* Centraliza horizontalmente */
               box-shadow: none !important;
               max-width: 600px !important;
               width: 100% !important; /* ocupa toda a largura disponível, sem overflow */
@@ -46,7 +46,7 @@ export default function Home() {
           borderRadius: '16px', // Bordas arredondadas
           boxShadow: '0 4px 24px rgba(0,0,0,0.08)', // Sombra para dar destaque ao card
           fontFamily: 'Segoe UI, Arial, sans-serif', // Fonte amigável e moderna
-          margin: '40px auto', // Margem automática para centralização
+          margin: '40px auto 0 auto', // Margem automática para centralização
           maxWidth: 600, // Largura máxima para o container
           width: '100%' // Largura total até a máxima definida
         }}
