@@ -15,8 +15,18 @@ function App() {
     <>
       {/* Barra lateral de navegação fixa */}
       <Navbar />
+      <style>
+        {`
+          @media (max-width: 700px) {
+            .main-content {
+              margin-left: 0 !important;
+              padding-top: 80px !important;
+            }
+          }
+        `}
+      </style>
       {/* Container principal das páginas, com margem para não sobrepor a sidebar */}
-      <div style={{ marginLeft: 200, padding: '2rem' }}>
+      <div className="main-content" style={{ marginLeft: 220, padding: '2rem' }}>
         {/* Define as rotas do sistema */}
         <Routes>
           {/* Rota para a página inicial */}
