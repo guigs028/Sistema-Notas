@@ -56,7 +56,8 @@ export default function Home() {
           color: '#222', // Cor escura para destaque
           fontSize: '2.5rem', // Tamanho grande
           marginBottom: 16, // Espaçamento inferior
-          fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte consistente
+          fontFamily: 'Segoe UI, Arial, sans-serif', // Fonte consistente
+          textAlign: 'center', // Centraliza o texto
         }}>
           Bem-vindo ao Sistema de Alunos
         </h1>
