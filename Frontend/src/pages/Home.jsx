@@ -13,17 +13,23 @@ export default function Home() {
               height: auto !important; /* Altura automática para caber o conteúdo */
               min-height: 100vh; /* Garante que ocupe pelo menos a altura total da tela */
               border-radius: 0 !important; /* Remove bordas arredondadas */
-              padding: 1.5rem 1rem !important; /* padding lateral maior */
-              margin: 0 !important; /* Remove margens externas */
+              padding: 2rem 4vw !important; /* padding lateral proporcional */
+              margin: 0 auto !important; /* Centraliza no mobile */
               box-shadow: none !important; /* Remove sombra */
               max-width: 100vw !important; /* garante que ocupe toda a largura */
+              display: flex !important; /* Garante que o container use flexbox */
+              flex-direction: column !important; /* Organiza os filhos em coluna */
+              align-items: center !important; /* Centraliza horizontalmente */
+              justify-content: center !important; /* Centraliza verticalmente */
             }
             .home-container h1 {
               font-size: 1.5rem !important; /* Reduz o tamanho da fonte do título */
+              text-align: center !important; /* Centraliza o texto do título */
             }
             .home-container p {
               font-size: 1rem !important; /* Reduz o tamanho da fonte do parágrafo */
-              max-width: 95vw !important; /* deixa o texto mais largo, mas com uma pequena margem */
+              max-width: 98vw !important; /* deixa o texto mais largo, mas com uma pequena margem */
+              text-align: center !important; /* Centraliza o texto do parágrafo */
             }
           }
         `}
@@ -40,7 +46,10 @@ export default function Home() {
           background: 'linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%)', // Fundo em gradiente suave
           borderRadius: '16px', // Bordas arredondadas
           boxShadow: '0 4px 24px rgba(0,0,0,0.08)', // Sombra para dar destaque ao card
-          fontFamily: 'Segoe UI, Arial, sans-serif' // Fonte amigável e moderna
+          fontFamily: 'Segoe UI, Arial, sans-serif', // Fonte amigável e moderna
+          margin: '40px auto', // Centraliza no desktop
+          maxWidth: 600,       // Limita largura no desktop
+          width: '100%'        // Ocupa toda a largura possível
         }}
       >
         {/* Título principal da página */}
