@@ -74,7 +74,6 @@ export default function Navbar() {
         <Link to="/cadastro" className="nav-link" style={linkStyle}>Cadastro de Aluno</Link>
         <Link to="/alunos" className="nav-link" style={linkStyle}>Lista de Alunos</Link>
         <Link to="/lancar-nota" className="nav-link" style={linkStyle}>Lançar Nota</Link>
-        <Link to="/boletim" className="nav-link" style={linkStyle}>Boletim</Link>
       </aside>
     </>
   );

@@ -13,16 +13,17 @@ export default function Home() {
               height: auto !important; /* Altura automática para caber o conteúdo */
               min-height: 100vh; /* Garante que ocupe pelo menos a altura total da tela */
               border-radius: 0 !important; /* Remove bordas arredondadas */
-              padding: 1.5rem 0.5rem !important; /* Ajusta o preenchimento interno */
+              padding: 1.5rem 1rem !important; /* padding lateral maior */
               margin: 0 !important; /* Remove margens externas */
               box-shadow: none !important; /* Remove sombra */
+              max-width: 100vw !important; /* garante que ocupe toda a largura */
             }
             .home-container h1 {
               font-size: 1.5rem !important; /* Reduz o tamanho da fonte do título */
             }
             .home-container p {
               font-size: 1rem !important; /* Reduz o tamanho da fonte do parágrafo */
-              max-width: 100vw !important; /* Permite que o parágrafo ocupe toda a largura da tela */
+              max-width: 95vw !important; /* deixa o texto mais largo, mas com uma pequena margem */
             }
           }
         `}
