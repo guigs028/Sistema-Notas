@@ -6,7 +6,6 @@ import Home from './pages/Home';                  // Importa a página inicial
 import CadastroAluno from './pages/CadastroAluno';// Importa a página de cadastro de aluno
 import ListaAlunos from './pages/ListaAlunos';    // Importa a página de listagem de alunos
 import LancarNota from './pages/LancarNota';      // Importa a página para lançar notas
-import BoletimAluno from './pages/BoletimAluno';  // Importa a página de boletim do aluno
 import EditarAluno from './pages/EditarAluno';    // Importa a página para editar dados do aluno
 import EditarNota from './pages/EditarNota';      // Importa a página para editar/lançar notas de um aluno específico
 
@@ -28,8 +27,6 @@ function App() {
           <Route path="/alunos" element={<ListaAlunos />} />
           {/* Rota para lançar notas (busca por nome) */}
           <Route path="/lancar-nota" element={<LancarNota />} />
-          {/* Rota para boletim do aluno */}
-          <Route path="/boletim" element={<BoletimAluno />} />
           {/* Rota para editar dados de um aluno (por ID) */}
           <Route path="/editar/:id" element={<EditarAluno />} />
           {/* Rota para lançar/editar notas de um aluno específico (por ID) */}
