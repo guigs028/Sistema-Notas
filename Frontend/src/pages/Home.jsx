@@ -12,11 +12,11 @@ export default function Home() {
               height: auto !important;
               min-height: 100vh;
               border-radius: 0 !important;
-              padding: 2rem 1rem !important;
+              padding: 2rem 4vw !important; /* padding lateral proporcional */
               margin: 0 auto !important;
               box-shadow: none !important;
-              max-width: 600px !important; /* Mantém largura máxima igual ao desktop */
-              width: 100vw !important;
+              max-width: 600px !important;
+              width: 100% !important; /* ocupa toda a largura disponível, sem overflow */
               display: flex !important;
               flex-direction: column !important;
               align-items: center !important;
@@ -28,7 +28,7 @@ export default function Home() {
             }
             .home-container p {
               font-size: 1.1rem !important;
-              max-width: 500px !important;
+              max-width: 95vw !important;
               text-align: center !important;
             }
           }
