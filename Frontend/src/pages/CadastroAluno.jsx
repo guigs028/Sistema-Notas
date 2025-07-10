@@ -21,7 +21,7 @@ export default function CadastroAluno() {
 
     try {
       // Envia os dados para o backend usando fetch
-      const response = await fetch('http://localhost:5000/api/alunos', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/alunos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, email, curso }) // Envia os dados como JSON

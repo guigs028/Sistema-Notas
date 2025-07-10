@@ -8,7 +8,7 @@ export default function ListaAlunos() {
 
   // Busca a lista de alunos no backend ao carregar a página
   useEffect(() => {
-    fetch('http://localhost:5000/api/alunos')
+    fetch(`${import.meta.env.VITE_API_URL}/api/alunos`)
       .then(res => res.json())
       .then(data => setAlunos(data));
   }, []);
@@ -21,7 +21,7 @@ export default function ListaAlunos() {
   // Função para excluir um aluno
   const handleExcluir = async (alunoId) => {
     if (window.confirm('Tem certeza que deseja excluir este aluno?')) {
-      await fetch(`http://localhost:5000/api/alunos/${alunoId}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${alunoId}`, {
         method: 'DELETE'
       });
       // Remove o aluno da lista local após exclusão

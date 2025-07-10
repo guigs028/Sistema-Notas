@@ -15,7 +15,7 @@ export default function EditarNota() {
 
   // Busca os dados do aluno ao carregar a página ou quando o ID mudar
   useEffect(() => {
-    fetch(`http://localhost:5000/api/alunos/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Aluno não encontrado!'); // Se não encontrar, lança erro
         return res.json();
@@ -38,7 +38,7 @@ export default function EditarNota() {
   // Função chamada ao clicar em "Lançar Notas"
   const handleLancarNotas = async () => {
     if (!aluno) return; // Se não houver aluno, não faz nada
-    await fetch(`http://localhost:5000/api/alunos/${aluno.id || aluno._id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${aluno.id || aluno._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       // Envia todas as informações do aluno, mas atualiza as notas com os valores dos inputs

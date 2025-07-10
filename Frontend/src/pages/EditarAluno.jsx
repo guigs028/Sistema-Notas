@@ -10,7 +10,7 @@ export default function EditarAluno() {
 
   // Busca os dados do aluno ao carregar a página ou quando o ID mudar
   useEffect(() => {
-    fetch(`http://localhost:5000/api/alunos/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${id}`)
       .then(res => res.json())
       .then(data => setAluno(data));
   }, [id]);
@@ -28,7 +28,7 @@ export default function EditarAluno() {
   // Função chamada ao enviar o formulário
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evita recarregar a página
-    await fetch(`http://localhost:5000/api/alunos/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(aluno)

@@ -6,7 +6,13 @@ require('dotenv').config();                 // Carrega variáveis de ambiente do
 
 const app = express();                      // Cria uma instância do aplicativo Express
 
-app.use(cors());                            // Permite requisições de outros domínios (frontend)
+const corsOptions = {
+  origin: [
+    'https://sistema-notas-eta.vercel.app',
+    'http://localhost:5173'
+  ]
+};
+app.use(cors(corsOptions));                            // Permite requisições de outros domínios (frontend)
 app.use(express.json());                    // Permite receber e enviar dados em formato JSON
 
 // Conexão com MongoDB usando a string de conexão do arquivo .env

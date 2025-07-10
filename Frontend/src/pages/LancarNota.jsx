@@ -12,7 +12,7 @@ export default function LancarNota() {
   // Se veio um ID na URL, busca o aluno automaticamente ao carregar a página
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/api/alunos/${id}`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('Aluno não encontrado!');
           return res.json();
@@ -30,7 +30,7 @@ export default function LancarNota() {
   const handleBuscar = async () => {
     setErro('');
     setAluno(null);
-    const res = await fetch('http://localhost:5000/api/alunos');
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/alunos`);
     const alunos = await res.json();
     // Busca aluno pelo nome (case insensitive)
     const encontrado = alunos.find(a => a.nome.toLowerCase() === busca.toLowerCase());
@@ -52,7 +52,7 @@ export default function LancarNota() {
   // Função para lançar (salvar) as notas do aluno
   const handleLancarNotas = async () => {
     if (!aluno) return; // Não faz nada se não houver aluno selecionado
-    await fetch(`http://localhost:5000/api/alunos/${aluno.id || aluno._id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/alunos/${aluno.id || aluno._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       // Atualiza as notas do aluno (converte para float)
