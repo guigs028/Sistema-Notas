@@ -10,6 +10,7 @@ Sistema web completo para cadastro de alunos e lançamento de notas, desenvolvid
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como Executar](#como-executar)
+- [Hospedagem (Deploy)](#hospedagem-deploy)
 - [Estrutura de Pastas](#estrutura-de-pastas)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
@@ -61,7 +62,7 @@ O **Sistema de Notas** é uma aplicação web que permite o gerenciamento comple
 
 1. **Clone este repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/seu-repo.git
+   git clone https://github.com/guigs028/Sistema-Notas.git
    ```
 
 2. **Configure o Backend:**
@@ -84,6 +85,11 @@ O **Sistema de Notas** é uma aplicação web que permite o gerenciamento comple
    cd ../Frontend/frontend
    npm install
    ```
+   - Crie um arquivo `.env` na pasta `Frontend/frontend` com:
+     ```
+     VITE_API_URL=http://localhost:5000
+     #VITE_API_URL=https://sistema-notas-uxtt.onrender.com
+     ```
    - Inicie o servidor frontend:
      ```bash
      npm run dev
@@ -92,6 +98,32 @@ O **Sistema de Notas** é uma aplicação web que permite o gerenciamento comple
 4. **Acesse o sistema:**
    - Frontend: [http://localhost:5173](http://localhost:5173)
    - Backend: [http://localhost:5000](http://localhost:5000)
+
+---
+
+## Hospedagem (Deploy)
+
+O sistema está hospedado em ambiente de produção utilizando:
+
+- **Backend:** [Render](https://render.com/)  
+  O backend Node.js/Express está hospedado no Render, acessível por uma URL pública: `https://sistema-notas-uxtt.onrender.com`.
+
+- **Frontend:** [Vercel](https://vercel.com/)  
+  O frontend React/Vite está hospedado no Vercel, acessível por uma URL pública: `https://sistema-notas-eta.vercel.app/`.
+
+### Variáveis de ambiente para produção
+
+No deploy, o arquivo `.env` do frontend deve conter:
+```
+VITE_API_URL=https://sistema-notas-uxtt.onrender.com
+#VITE_API_URL=http://localhost:5000
+```
+No ambiente local, **comente a linha do Render e descomente a do localhost** para rodar tudo localmente:
+```
+#VITE_API_URL=https://sistema-notas-uxtt.onrender.com
+VITE_API_URL=http://localhost:5000
+```
+No Vercel, configure a variável de ambiente `VITE_API_URL` pelo painel, apontando para o backend do Render.
 
 ---
 
@@ -123,21 +155,6 @@ SistemaNotas/
 │       ├── public/
 │       └── README.md
 ```
-
----
-
-## Contribuição
-
-Contribuições são bem-vindas!  
-Para contribuir, siga os passos abaixo:
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b minha-feature`)
-3. Commit suas alterações (`git commit -m 'feat: minha nova feature'`)
-4. Faça push para a branch (`git push origin minha-feature`)
-5. Abra um Pull Request
-
-Sugestões, correções e melhorias são sempre bem-vindas. Sinta-se à vontade para abrir uma issue ou enviar um PR.
 
 ---
 
